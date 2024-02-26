@@ -7,6 +7,7 @@ const getProductsList = async (event) => {
     body: JSON.stringify(products),
     headers: {
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*'
     },
   };
 }
