@@ -70,6 +70,7 @@ functions:
       - http:
           method: get
           path: products
+          cors: true
 
   getProductById:
     handler: handlers/getProductById.getProductById
@@ -77,7 +78,17 @@ functions:
       - http:
           method: get
           path: products/{id}
+          cors: true
 
+  createProduct:
+    handler: handlers/createProducts.createProducts
+    envaronment:
+      tableName: products
+    events:
+      - http:
+          method: post
+          path: products
+          cors: true
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
