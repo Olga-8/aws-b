@@ -1,7 +1,7 @@
 const products = require('../products/productsList');
 
 const getProductById = async (event) => {
-  const productId = event.pathParameters.id;
+  const productId = event.queryStringParameters.id;
   const product = products.find(p => p.id === productId);
 
   if (!product) {
