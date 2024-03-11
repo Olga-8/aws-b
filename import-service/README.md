@@ -4,7 +4,7 @@ hw5
 
 
  HTTP GET https://czhq2bhbmi.execute-api.eu-west-1.amazonaws.com/dev/import?name=example.csv
-                                                               
+     load->    https://bukethw5.s3.eu-west-1.amazonaws.com/uploaded/catalog_books_10.csv                              
 functions:
 1 importProductsFile: import-service-dev-importProductsFile (18MB)                                                                                
 2 importFileParser: import-service-dev-importFileParser (18 MB)       

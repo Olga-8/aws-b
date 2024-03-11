@@ -11,6 +11,7 @@ provider:
         - "s3:ListBucket"
         - "s3:DeleteObject"
         - "s3:PutObject"
+        - "s3:GetObject"
       Resource: "arn:aws:s3:::bukethw5/*"
 
 functions:
@@ -30,8 +31,8 @@ functions:
           event: s3:ObjectCreated:*
           rules:
             - prefix: uploaded/
-            - suffix: .csv
           existing: true
+          cors: true
 
 custom:
   importBucket: bukethw5

@@ -45,6 +45,9 @@ const bucketName = 'bukethw5';
 
 exports.handler = async (event) => {
     const fileName = event.queryStringParameters ? event.queryStringParameters.name : null;
+
+    const urls = [];
+
     if (!fileName) {
         return {
             statusCode: 400,
@@ -55,9 +58,12 @@ exports.handler = async (event) => {
     const params = {
         Bucket: bucketName,
         Key: `uploaded/${fileName}`,
-        Expires: 300,
         ContentType: 'text/csv',
     };
+
+    console.log('Creating signed URL:', params);
+    console.log('event', event);
+    console.log('fileName', fileName);
 
     try {
         const signedUrl = await s3.getSignedUrlPromise('putObject', params);
@@ -73,4 +79,35 @@ exports.handler = async (event) => {
             body: JSON.stringify({ message: "Internal server error" }),
         };
     }
+
+    // try {
+    //     const signedUrl = await s3.listObjectsV2(params).promise();
+
+    //     urls= signedUrl.Contents.map((url) => {
+    //         return `https://${bucketName}.s3.amazonaws.com/${url.Key}`;
+    //     });
+
+
+    //     console.log('signedUrl', signedUrl);
+    //     return {
+    //         statusCode: 200,
+    //         headers: { 'Access-Control-Allow-Origin': '*' },
+    //         body: JSON.stringify(
+    //             urls
+    //         ),
+    //     };
+    // }
+    // catch (error) {
+    //     console.error('Error creating signed URL:', error);
+    //     return {
+    //         statusCode: 500,
+    //         body: JSON.stringify({ message: "Internal server error" }),
+    //     };
+    // }
+
+
+
 };
+
+
+
