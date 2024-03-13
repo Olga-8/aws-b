@@ -1,6 +1,7 @@
 const AWS = require('aws-sdk');
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
+
 const scan = async () => {
   const scanResult = await dynamoDb.scan({ TableName: process.env.PRODUCTS_TABLE }).promise();
   return scanResult;

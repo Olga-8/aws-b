@@ -1,3 +1,5 @@
+# 
+
 service: import-service
 
 provider:
@@ -13,6 +15,10 @@ provider:
         - "s3:PutObject"
         - "s3:GetObject"
       Resource: "arn:aws:s3:::bukethw5/*"
+    - Effect: "Allow"
+      Action:
+        - "sqs:SendMessage"
+      Resource: "arn:aws:sqs:${self:provider.region}:*:catalogItemsQueue"
 
 functions:
   importProductsFile:
@@ -25,6 +31,8 @@ functions:
 
   importFileParser:
     handler: handlers/importFileParser.handler
+    environment:
+      SQS_URL: { "Fn::Join" : ["", ["https://sqs.", { "Ref": "AWS::Region" }, ".amazonaws.com/", { "Ref": "AWS::AccountId" }, "/catalogItemsQueue"]] }
     events:
       - s3:
           bucket: bukethw5
