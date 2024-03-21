@@ -1,0 +1,14 @@
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: dev
+  region: eu-west-1
+
+functions:
+  basicAuthorizer:
+    handler: handlers.basicAuthorizer
+    events:
+      - http:
+          path: auth
+          method: get
+          cors: true
